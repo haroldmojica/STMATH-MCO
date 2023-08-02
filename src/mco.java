@@ -4,11 +4,11 @@ import java.util.function.Function;
 
 public class mco {
     public static void main(String[] args) {
-    	
     	// variables
     	double n;
     	double a;
     	double b;
+        String again = "y";
         Scanner scanner = new Scanner(System.in);
 
         // function definition
@@ -16,18 +16,29 @@ public class mco {
         //Function<Double, Double> f = x-> (((3*x*x*x)+(2*x*x)+(5*x))/2) + 3*x;
         //Function<Double, Double> f = x-> x*Math.sin(x);
         
-    	// read input from user
-    	System.out.println("\n  /\n || Input the values for the following:");
-    	System.out.print(" ||  a = ");
-        a = scanner.nextDouble();
-    	System.out.print(" ||  b = ");
-        b = scanner.nextDouble();
-    	System.out.print(" ||  n = ");
-        n = scanner.nextDouble();
+    	// repeat process until user chooses not to
+        while (again.equals("y") || again.equals("yes")) {
+            // read input from user
+            System.out.println("\n  /\n || Input the values for the following:");
+            System.out.print(" ||  a = ");
+            a = scanner.nextDouble();
+            System.out.print(" ||  b = ");
+            b = scanner.nextDouble();
+            System.out.print(" ||  n = ");
+            n = scanner.nextDouble();
 
-        // solve for the approximate integral
-        double integral = trapezoidalRule(f, a, b, n);
-        System.out.println(" ||\n || Approximate Integral: \n ||  " + integral + "\n  \\");
+            // remove \n from the input buffer
+            scanner.nextLine();
+
+            // solve for the approximate integral
+            double integral = trapezoidalRule(f, a, b, n);
+            System.out.println(" ||\n || Approximate Integral: \n ||  " + integral + "\n  \\\n");
+
+            // again
+            System.out.print(" Would you like to change the values (Y/N)? ");
+            again = scanner.nextLine().toLowerCase();
+        }
+        scanner.close();
     }
 
     private static double trapezoidalRule(Function<Double, Double> f, double a, double b, double n) {
