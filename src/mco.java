@@ -1,31 +1,40 @@
 import java.lang.Math;
+import java.util.Scanner;
 import java.util.function.Function;
 
 public class mco {
     public static void main(String[] args) {
-        // for trigonometric functions inputs are in RADIANS not DEGREES
-        Function<Double, Double> f = x-> 2*x*x + 3*x -28;
-        Function<Double, Double> test2 = x-> Math.sin(x);
-        //Double b = Math.toRadians(178);
-        //Double a = Math.toRadians(90);
+    	
+    	// variables
+    	double n;
+    	double a;
+    	double b;
+        Scanner scanner = new Scanner(System.in);
 
-        Double a = 5.0;
-        Double b = 10.0;
-        //System.out.println(test2.apply(x));
+        // function definition
+        Function<Double, Double> f = x-> x*x;
+        //Function<Double, Double> f = x-> (((3*x*x*x)+(2*x*x)+(5*x))/2) + 3*x;
+        //Function<Double, Double> f = x-> x*Math.sin(x);
+        
+    	// read input from user
+    	System.out.println("\n  /\n || Input the values for the following:");
+    	System.out.print(" ||  a = ");
+        a = scanner.nextDouble();
+    	System.out.print(" ||  b = ");
+        b = scanner.nextDouble();
+    	System.out.print(" ||  n = ");
+        n = scanner.nextDouble();
 
-
-        int numIntervals = 100;
-
-        double integral = trapezoidalRule(f, a, b, numIntervals);
-        System.out.println(integral);
-        //System.out.println("Approximate Integral: " + integral);
+        // solve for the approximate integral
+        double integral = trapezoidalRule(f, a, b, n);
+        System.out.println(" ||\n || Approximate Integral: \n ||  " + integral + "\n  \\");
     }
 
-    private static double trapezoidalRule(Function<Double, Double> f, double a, double b, int numIntervals) {
-        double h = (b - a) / numIntervals;
+    private static double trapezoidalRule(Function<Double, Double> f, double a, double b, double n) {
+        double h = (b - a) / n;
         double sum = 0.5 * (f.apply(a) + f.apply(b)); // no need to 2x the middle portion
 
-        for (int i = 1; i < numIntervals; i++) {
+        for (int i = 1; i < n; i++) {
             double x = a + i * h;
             sum += f.apply(x);
         }
